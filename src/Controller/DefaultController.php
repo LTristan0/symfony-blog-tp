@@ -12,7 +12,7 @@ class DefaultController extends AbstractController
     public function index(): Response
     {
         return $this->render('default/index.html.twig', [
-            'controller_name' => 'Toto qui se lève tot tantot parce qu il arrive bientot pour manger des carbos au milieu d un bateau sur leau. Il fait beau, sur ce paquebot naviguant sur un cachalot',
+            'controller_name' => 'Toto qui se lève tot tantot parce qu il arrive bientot pour manger des carbos au milieu d un bateau sur leau. Il fait beau, sur ce paquebot naviguant sur un cachalot un peu trizo aimant la bolo',
         ]);
     }
 }
