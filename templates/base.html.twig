@@ -56,8 +56,7 @@
                       <li><a class="dropdown-item" href="/page/new">{{ 'Create new page'|trans }}</a></li>
                     </ul>
                   </li>
-                  {% endif %}
-                </ul>
+
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Catégories
@@ -69,12 +68,12 @@
                 </li>
                 {% endif %}
               </ul>
-                <ul class="navbar-nav align-right>
+                <ul class="navbar-nav align-right">
                   <li class="nav-item">
                       {% if app.user %}
                         <a class="nav-link" href="/logout">{{ 'Sign out'|trans }}</a>
                       {% else %}
-                        <a class="nav-link" href="/register">{{ 'Sign up'|trans }}/a>
+                        <a class="nav-link" href="/register">{{ 'Sign up'|trans }}</a>
                         <a class="nav-link" href="/login">{{ 'Sign in'|trans }}</a>
                       {% endif %}
                     </li>
