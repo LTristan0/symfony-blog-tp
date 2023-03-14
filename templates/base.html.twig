@@ -58,6 +58,17 @@
                   </li>
                   {% endif %}
                 </ul>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Catégories
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/category">{{ 'Categories list'|trans }}</a></li>
+                    <li><a class="dropdown-item" href="/category/new">{{ 'Create new Categorie'|trans }}</a></li>
+                  </ul>
+                </li>
+                {% endif %}
+              </ul>
                 <ul class="navbar-nav align-right>
                   <li class="nav-item">
                       {% if app.user %}
