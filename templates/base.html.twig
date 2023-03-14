@@ -30,9 +30,6 @@
                     <a class="nav-link active" aria-current="page" href="/page/1">{{ 'Home'|trans }}</a>
                   </li>
 
-                {% if is_granted('ROLE_ADMIN') %}
-                  <a href="...">Delete</a>
-
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       {{ 'Our Formations'|trans }}
@@ -47,6 +44,9 @@
                   <li class="nav-item">
                     <a class="nav-link inactive" aria-current="page" href="#">{{ 'Formation center'|trans }}</a>
                   </li>
+
+                  {% if is_granted('ROLE_ADMIN') %}
+                  
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                       Pages
