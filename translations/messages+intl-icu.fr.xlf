@@ -33,6 +33,14 @@
         <source>Formation center</source>
         <target>Centre de formation</target>
       </trans-unit>
+      <trans-unit id="1VXNNVq" resname="Categories list">
+        <source>Categories list</source>
+        <target>Liste des catégories</target>
+      </trans-unit>
+      <trans-unit id="k5yP_yX" resname="Create new Categorie">
+        <source>Create new Categorie</source>
+        <target>Créer nouvelle catégorie</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
