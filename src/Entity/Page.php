@@ -9,7 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PageRepository::class)]
-// #[ORM\Table(name: 'tbl_page')]
+#[ORM\Table(name: 'tbl_page')]
+
 class Page
 {
     #[ORM\Id]
@@ -25,14 +26,6 @@ class Page
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $text = null;
-
-    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'pages')]
-    private Collection $category;
-
-    public function __construct()
-    {
-        $this->category = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -75,27 +68,4 @@ class Page
         return $this;
     }
 
-    /**
-     * @return Collection<int, Category>
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
-
-    public function addCategory(Category $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category->add($category);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        $this->category->removeElement($category);
-
-        return $this;
-    }
 }
