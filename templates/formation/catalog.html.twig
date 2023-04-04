@@ -5,8 +5,9 @@
 {% block body %}
     <h1>Formation index</h1>
 
-    
+    {% set number = 0 %}
         {% for formation in formations %}
+        {% set number = number + 1 %}
         <div class="accordion" id={{ formation.name }}>
             <div class="accordion-item">
               <h2 class="accordion-header">
@@ -14,9 +15,11 @@
                   {{ formation.name }}
                 </button>
               </h2>
-              <div id="collapse-{{ formation.name }}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div id="collapse-{{ formation.name }}" class="accordion-collapse collapse {% if number <2 %} show {% endif %}" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <strong>Description : </strong> {{ formation.description }}
+                  <br/>
+                  <a class="btn btn-primary" href="/formation/pdf/{{ formation.id }}" target="_blank">{{ 'Download PDF' | trans }}</a>
                 </div>
             </div>
         </div>
