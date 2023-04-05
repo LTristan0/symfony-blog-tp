@@ -96,7 +96,7 @@ class FormationController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ImageUploaderHelper $imageUploaderHelper, Formation $formation, FormationRepository $formationRepository): Response
+    public function edit(Request $request, ImageUploaderHelper $imageUploaderHelper, Formation $formation, FormationRepository $formationRepository, TranslatorInterface $translator): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -105,7 +105,11 @@ class FormationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $imageUploaderHelper->uploadImage($form, $formation);
+            $errorMessage = $imageUploaderHelper->uploadImage($form, $formation);
+            if(!empty($errorMessage)){
+                $ths->addFlash('danger', $translator->trans('An error is append: ') . $errorMessage);
+            }
+
             $formationRepository->save($formation, true);
 
             return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
