@@ -49,6 +49,30 @@ class FormationController extends AbstractController
         return $pdf->Output('fcpro-formation-' . $formation->getId() . '.pdf', 'I');
     }
 
+    #[Route('/futur', name: 'app_formation_futur', methods: ['GET'])]
+    public function futur(FormationRepository $formationRepository): Response
+    {
+        $formationsPerThree = array();
+
+        $formations = $formationRepository->findAllInTheFutur();
+
+        $i = 0;
+        $j = 1;
+        foreach ($formations as $formation){
+            $i++;
+            if($i>3){
+            $j++; $i=1;
+            }
+        $formationsPerThree[$j][$i] = $formation;
+        }
+        dump($formation);
+        dump($formationsPerThree);
+
+        return $this->render('formation/catalog.html.twig', [
+            'formations' => $formationRepository->findAllInTheFuture(),
+        ]);
+    }
+
     #[Route('/catalog', name: 'app_formation_catalog', methods: ['GET'])]
     public function catalog(FormationRepository $formationRepository): Response
     {
@@ -87,14 +111,6 @@ class FormationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_formation_show', methods: ['GET'])]
-    public function show(Formation $formation): Response
-    {
-        return $this->render('formation/show.html.twig', [
-            'formation' => $formation,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ImageUploaderHelper $imageUploaderHelper, Formation $formation, FormationRepository $formationRepository, TranslatorInterface $translator): Response
     {
@@ -118,6 +134,38 @@ class FormationController extends AbstractController
         return $this->renderForm('formation/edit.html.twig', [
             'formation' => $formation,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}/copy', name: 'app_formation_copy', methods: ['GET', 'POST'])]
+    public function copy(Request $request, ImageUploaderHelper $imageUploaderHelper, Formation $formation, FormationRepository $formationRepository, TranslatorInterface $translator): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $formation2 = new Formation();
+        $formation2->setCreatedAt($formation->getCreatedAt());
+        $formation2->setCreatedBy($formation->getCreatedBy());
+        $formation2->setContent($formation->getContent());
+        $formation2->setDescription($formation->getDescription());
+
+        $formation2->setCapacity($formation->getCapacity());
+        $formation2->setStartDateTime($formation->getStartDateTime());
+        $formation2->setEndDateTime($formation->getEndDateTime());
+        $formation2->setImageFileName($formation->getImageFileName());
+        $formation2->setName($formation->getName());
+        $formation2->setPrice($formation->getPrice());
+
+            $formationRepository->save($formation2, true);
+            $this->addFlash('success', $translator->trans('The formation is copied '));
+
+            return $this->redirectToRoute('app_formation_index');
+    }
+    
+    #[Route('/{id}', name: 'app_formation_show', methods: ['GET'])]
+    public function show(Formation $formation): Response
+    {
+        return $this->render('formation/show.html.twig', [
+            'formation' => $formation,
         ]);
     }
 

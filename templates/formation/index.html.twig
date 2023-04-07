@@ -33,8 +33,9 @@
                 <td>{{ formation.startDateTime ? formation.startDateTime|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ formation.endDateTime ? formation.endDateTime|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>
-                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>
+                    <a class="btn btn-primary" href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>
+                    <a class="btn btn-warning" href="{{ path('app_formation_copy', {'id': formation.id}) }}">copy</a>
                 </td>
             </tr>
         {% else %}
